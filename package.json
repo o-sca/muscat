@@ -1,7 +1,7 @@
 {
-  "name": "captcha",
+  "name": "muscat",
   "version": "1.0.0",
-  "description": "",
+  "description": "All in one package for all your captcha solving needs",
   "main": "build/src/index.js",
   "exports": "build/src/index.js",
   "scripts": {
