@@ -12,6 +12,26 @@ class Muscat {
   }
 
   /**
+  * Sets all property values.
+  * @param {string} key - providerKey
+  * @param {string} websiteUrl
+  * @param {string} websiteKey
+  * @throws {Error} if any of the param values are invalid or missing
+  */
+  public static setup(
+    key: string,
+    websiteKey: string,
+    websiteUrl: string
+  ) {
+    if (!key || !websiteKey || !websiteUrl) {
+      throw new Error("Missing or invalid values in parameter");
+    }
+    Muscat.config.providerKey = key
+    Muscat.config.websiteUrl = websiteUrl;
+    Muscat.config.websiteKey = websiteKey;
+  }
+
+  /**
   * Sets the providerKey value.
   * @param {string} key
   * @throws {Error} if invalid key value
