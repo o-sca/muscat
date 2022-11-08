@@ -6,12 +6,24 @@ Your all in one captcha solver package.
 ```js
 import muscat from 'muscat';
 
-muscat.setup(providerKey, websiteKey, websiteUrl);
+(async () => {
+  muscat.setup({
+    provider: "capmonster",
+    providerKey: "123mao234n",
+    websiteUrl <optional>
+    websiteKey <optional>
+  });
 
-muscat.capmonster.createTask();
-muscat.capmonster.getTaskResult();
-const captchaSolution = muscat.capmonster.solution;
+  const balance = await muscat.getBalance();
+  
+  console.log(balance);
+  // { errorId: 0, balance: 1.028 }
 
-console.log(captchaSolution);
-// 3AHJ_VuvYIBNBW5yyv0zRYJ75VkOKvhKj9_xGBJKnQimF72rfoq3Iy-DyGHMwLAo6a3
+  await muscat.createTask();
+  await muscat.getTaskResult();
+  const captchaSolution = muscat.capmonster.solution;
+
+  console.log(captchaSolution);
+  // 3AHJ_VuvYIBNBW5yyv0zRYJ75VkOKvhKj9_xGBJKnQimF72rfoq3Iy-DyGHMwLAo6a3
+})();
 ```
