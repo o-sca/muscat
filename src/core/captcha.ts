@@ -1,9 +1,7 @@
-import { ICaptcha } from "../types/ICaptcha.js";
-
 /**
  * Class representing Captcha.
  */
-export class Captcha implements ICaptcha {
+export class Client {
   protected websiteKey: string;
   protected websiteUrl: string;
   protected providerKey: string;

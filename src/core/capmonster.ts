@@ -1,12 +1,12 @@
 import got, { OptionsOfJSONResponseBody, Response } from "got";
 import { setTimeout } from "node:timers/promises"
-import { Captcha } from "./captcha.js";
+import { Client } from "./index.js";
 import { CreateTask, TaskResult } from "../types/response.js";
 
 /**
 * Handles task creation and returning captcha response.
 */
-export class Capmonster extends Captcha {
+export class Capmonster extends Client {
   /**
   * Constructs the object type Capmonster.
   * 
@@ -19,7 +19,7 @@ export class Capmonster extends Captcha {
     websiteKey: string,
     websiteUrl: string
   ) {
-    super(providerKey, websiteKey, websiteUrl)
+    super()
   }
 
   /**

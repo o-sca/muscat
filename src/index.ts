@@ -1,72 +1,53 @@
-import { Capmonster } from "./core/capmonster.js";
+import { ClientOptions } from "./common/clientOptions.js";
+import { Client } from "./core/index.js";
+import { Setup } from "./types/Setup.js";
 
 /**
-* Class representing Captcha.
+* Class representing Muscat.
 */
 class Muscat {
   /* Config property. */
-  static config: {
-    providerKey: string,
-    websiteUrl: string,
-    websiteKey: string
+  private static config: {
+    clientOption: ClientOptions,
+    websiteUrl?: string,
+    websiteKey?: string
   }
 
   /**
-  * Sets all property values.
-  * @param {string} key - providerKey
-  * @param {string} websiteUrl
-  * @param {string} websiteKey
+  * Sets all property values and constructs clientOption object.
+  * @param {Setup} provider, providerKey, websiteKey, websiteUrl
   * @throws {Error} if any of the param values are invalid or missing
   */
-  public static setup(
-    key: string,
-    websiteKey: string,
-    websiteUrl: string
-  ) {
-    if (!key || !websiteKey || !websiteUrl) {
-      throw new Error("Missing or invalid values in parameter");
+  public static setup({
+    provider: provider,
+    providerKey: providerKey,
+    websiteKey: websiteKey,
+    websiteUrl: websiteUrl
+  }: Setup) {
+    if (!provider || !providerKey) {
+      throw new Error("Missing or invalid values in parameter for setup method");
     }
-    Muscat.config.providerKey = key
-    Muscat.config.websiteUrl = websiteUrl;
-    Muscat.config.websiteKey = websiteKey;
-  }
 
-  /**
-  * Sets the providerKey value.
-  * @param {string} key
-  * @throws {Error} if invalid key value
-  */
-  public static setKey(key: string) {
-    if (!key) throw new Error("Invalid key value");
-    Muscat.config.providerKey = key;
-  }
-
-  /**
-  * Sets the websiteUrl and websiteKey value.
-  * @param {string} websiteUrl
-  * @param {string} websiteKey
-  * @throws {Error} if invalid websiteUrl or websiteKey value
-  */
-  public static setWebsite(websiteUrl: string, websiteKey: string) {
-    if (!websiteKey || !websiteUrl) {
-      throw new Error("Invalid websiteUrl or websiteKey value");
+    this.config = {
+      websiteUrl: websiteUrl,
+      websiteKey: websiteKey,
+      clientOption: new ClientOptions({
+        provider: provider,
+        providerKey: providerKey
+      })
     }
-    Muscat.config.websiteUrl = websiteUrl;
-    Muscat.config.websiteKey = websiteKey;
   }
 
-
-  /**
-  * Constructs a Capmonster object.
-  */
-  public static capmonster = new Capmonster(
-    Muscat.config.providerKey,
-    Muscat.config.websiteKey,
-    Muscat.config.websiteUrl
-  )
+  public static async getBalance() {
+    try {
+      const balance = await new Client(this.config.clientOption).getBalance();
+      return balance;
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
 
 const muscat = Muscat;
 
-module.exports = muscat;
 export default muscat;
