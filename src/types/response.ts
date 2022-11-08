@@ -5,13 +5,11 @@ export type CreateTask = {
   errorDescription?: string;
 };
 
-export type TaskResult = {
+export type TaskResult<T> = {
   errorId: number;
   errorCode?: string;
   errorDescription?: string;
   status: string;
-  solution: {
-    gRecaptchaResponse: string;
-  }
+  solution: T
 };
 

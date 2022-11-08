@@ -1,5 +1,5 @@
 export enum Provider {
-  Capmonster = "capmonster",
-  TwoCaptcha = "2captcha",
-  AntiCaptcha = "anticaptcha"
+  Capmonster = "https://api.capmonster.cloud",
+  TwoCaptcha = "http://2captcha.com",
+  AntiCaptcha = "https://api.anti-captcha.com"
 }
