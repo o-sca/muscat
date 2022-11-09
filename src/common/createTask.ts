@@ -1,4 +1,4 @@
-import { Captcha } from "./common/captcha.js";
+import { Captcha } from "./captcha.js";
 
 export abstract class CreateTask {
   public providerKey: string;

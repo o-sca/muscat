@@ -1,7 +1,9 @@
-import got, { HTTPError, OptionsOfJSONResponseBody, Response } from "got";
+import { Response } from "got";
+import { RequestClient } from "../common/request.js";
 import { ClientOptions } from "../common/clientOptions.js";
 import { BalanceError } from "../errors/GetBalance.js";
 import { GetBalanceResponse, GetBalanceResponseError, GetBalanceResponseSuccess } from "../types/Balance.js";
+import { CreateTaskResponse, CreateTaskResponseSuccess } from "../types/CreateTask.js";
 
 export class Client {
   private clientOptions: ClientOptions;
@@ -11,33 +13,25 @@ export class Client {
   }
 
   public async getBalance(): Promise<GetBalanceResponse> {
-    const options: OptionsOfJSONResponseBody = {
-      url: `${this.clientOptions.provider}/getBalance`,
-      method: "POST",
-      headers: {
-        "accept-encoding": "gzip, br",
-        "content-type": "application/json"
-      },
+    const { client } = new RequestClient({ prefixUrl: this.clientOptions.provider });
+    const { body }: Response<GetBalanceResponse> = await client(`getBalance`, {
       json: {
         clientKey: this.clientOptions.key
       },
-      responseType: "json",
-      timeout: { request: 20000 }
-    }
-    try {
-      const { body }: Response<GetBalanceResponse> = await got(options);
-      if (body.errorId !== 0) {
-        // throw new BalanceError();
-      }
-      return body as GetBalanceResponseSuccess;
-    } catch (err) {
-      if (err instanceof HTTPError) {
-        throw new Error(err.message);
-      }
-      throw err;
-    }
+      responseType: "json"
+    })
+    return body as GetBalanceResponseSuccess;
   }
 
-
-
+  public async createTask(): Promise<CreateTaskResponse> {
+    const { client } = new RequestClient({ prefixUrl: this.clientOptions.provider });
+    const { body }: Response<CreateTaskResponse> = await client(`createTask`, {
+      json: {
+        clientKey: this.clientOptions.key,
+        taskType: {}
+      },
+      responseType: "json",
+    })
+    return body as CreateTaskResponseSuccess;
+  }
 }
