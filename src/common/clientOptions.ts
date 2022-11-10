@@ -1,29 +1,15 @@
 import { Options } from "../types/Options.js";
-import { Provider } from "../types/Providers.js";
-import { Errors } from "../types/Errors.js";
+import { Providers } from "../types/Providers.js";
+import { Converter } from "./converter.js";
 
 export class ClientOptions {
-  private _provider: Provider;
+  private _provider: Providers;
   private providerKey: string;
 
   public constructor(options: Options) {
     const { provider, providerKey } = options;
-
     this.providerKey = providerKey;
-
-    switch (provider.toLowerCase()) {
-      case "capmonster":
-        this._provider = Provider.Capmonster;
-        break;
-      case "twocaptcha":
-        this._provider = Provider.TwoCaptcha;
-        break;
-      case "anticaptcha":
-        this._provider = Provider.AntiCaptcha;
-        break;
-      default:
-        throw new Error(Errors.INVALID_PROVIDER);
-    }
+    this._provider = Converter.convertProvider(provider);
   }
 
   public get provider(): string {

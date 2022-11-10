@@ -1,7 +1,10 @@
-export enum Provider {
-  Capmonster = "https://api.capmonster.cloud",
-  TwoCaptcha = "http://2captcha.com",
-  AntiCaptcha = "https://api.anti-captcha.com",
-  CaptchaAI = "https://ai.captchaai.io",
-  AnyCaptcha = "https://api.anycaptcha.com",
+export enum Providers {
+  capmonster = "https://api.capmonster.cloud",
+  twocaptcha = "http://2captcha.com",
+  anticaptcha = "https://api.anti-captcha.com",
+  captchaai = "https://ai.captchaai.io",
+  anycaptcha = "https://api.anycaptcha.com",
+  Unknown = "Unknown",
 }
+
+export type ProvidersKey = keyof typeof Providers;

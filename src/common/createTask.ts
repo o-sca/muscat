@@ -1,7 +1,7 @@
-import { Captcha } from "./captcha.js";
+import { CaptchaBase } from "./captchas/captchaBase.js";
 
 export abstract class CreateTask {
   public providerKey: string;
-  public task: Captcha;
+  public task: CaptchaBase;
   public softId?: string;
 }

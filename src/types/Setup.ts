@@ -1,4 +1,3 @@
-
 export type Setup = {
   provider: string;
   providerKey: string;

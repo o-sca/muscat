@@ -1,6 +1,7 @@
 import { ClientOptions } from "./common/clientOptions.js";
 import { Client } from "./core/index.js";
 import { Setup } from "./types/Setup.js";
+import { SetupError } from "./errors/Setup.js";
 
 /**
 * Class representing Muscat.
@@ -15,22 +16,18 @@ class Muscat {
 
   /**
   * Sets all property values and constructs clientOption object.
-  * @param {Setup} provider, providerKey, websiteKey, websiteUrl
+  * @param {Setup} provider, providerKey
   * @throws {Error} if any of the param values are invalid or missing
   */
   public static setup({
     provider: provider,
     providerKey: providerKey,
-    websiteKey: websiteKey,
-    websiteUrl: websiteUrl
   }: Setup) {
     if (!provider || !providerKey) {
-      throw new Error("Missing or invalid values in parameter for setup method");
+      throw new SetupError("Missing or invalid values in parameter for setup method");
     }
 
     this.config = {
-      websiteUrl: websiteUrl,
-      websiteKey: websiteKey,
       clientOption: new ClientOptions({
         provider: provider,
         providerKey: providerKey
@@ -39,15 +36,17 @@ class Muscat {
   }
 
   public static async getBalance() {
-    try {
-      const balance = await new Client(this.config.clientOption).getBalance();
-      return balance;
-    } catch (err) {
-      console.error(err);
-    }
+    const balance = await new Client(this.config.clientOption).getBalance();
+    return balance;
   }
+
+  public static async solve(task: Task) {
+    return await new Client(this.config.clientOption).solve(task);
+  }
+
 }
 
 const muscat = Muscat;
-
 export default muscat;
+
+
