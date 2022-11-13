@@ -19,9 +19,17 @@ import muscat from 'muscat';
   console.log(balance);
   // { errorId: 0, balance: 1.028 }
 
-  await muscat.createTask();
+  const createTaskResponse = await muscat.solve({
+    "type": "NoCaptchaTaskProxyless",
+    "websiteURL": "https://recaptcha-demo.appspot.com/recaptcha-v2-invisible.php",
+    "websiteKey": "6LcmDCcUAAAAAL5QmnMvDFnfPTP4iCUYRk2MwC0-"
+  });
+  
+  console.log(createTaskResponse);
+  // { errorId: 0, errorCode: '', errorDescription: '', taskId: 498740219 }
+
   await muscat.getTaskResult();
-  const captchaSolution = muscat.capmonster.solution;
+  const captchaSolution = muscat.solution;
 
   console.log(captchaSolution);
   // 3AHJ_VuvYIBNBW5yyv0zRYJ75VkOKvhKj9_xGBJKnQimF72rfoq3Iy-DyGHMwLAo6a3
