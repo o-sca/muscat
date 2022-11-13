@@ -28,7 +28,7 @@ import muscat from 'muscat';
   console.log(createTaskResponse);
   // { errorId: 0, errorCode: '', errorDescription: '', taskId: 498740219 }
 
-  await muscat.getTaskResult();
+  await muscat.getTaskResult(createTaskResponse.taskId);
   const captchaSolution = muscat.solution;
 
   console.log(captchaSolution);
