@@ -1,6 +1,6 @@
 import { Captcha } from "./Captcha.js";
 
 export type ReCaptcha = {
-  websiteUrl: string;
+  websiteURL: string;
   websiteKey: string;
 } & Captcha;

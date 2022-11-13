@@ -1,11 +1,5 @@
-import { ReCaptcha } from "./ReCaptcha.js";
+import { ReCaptchaV2 } from "./ReCaptchaV2.js";
+import { Proxy } from "./Proxy.js";
 
-export type ReCaptchaV2Proxy = {
-  recaptchaDataSValue?: string;
-  proxyType: string;
-  proxyAddress: string;
-  proxyPort: number;
-  proxyLogin?: string;
-  proxyPassword?: string;
-  cookies?: string;
-} & ReCaptcha;
+export type ReCaptchaV2Proxy =
+  Proxy & ReCaptchaV2;

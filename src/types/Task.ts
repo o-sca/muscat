@@ -10,5 +10,8 @@ export enum Task {
   RecaptchaV2EnterpriseTask = 'RecaptchaV2EnterpriseTask',
   NoCaptchaTaskProxyless = 'NoCaptchaTaskProxyless',
   NoCaptchaTask = 'NoCaptchaTask',
-  RecaptchaV3TaskProxyless = 'RecaptchaV3TaskProxyless'
+  RecaptchaV3TaskProxyless = 'RecaptchaV3TaskProxyless',
+  Unknown = 'Unknown'
 }
+
+export type TaskKey = keyof typeof Task;

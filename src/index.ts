@@ -2,6 +2,7 @@ import { ClientOptions } from "./common/clientOptions.js";
 import { Client } from "./core/index.js";
 import { Setup } from "./types/Setup.js";
 import { SetupError } from "./errors/Setup.js";
+import { Task } from "./common/captchas/task.js";
 
 /**
 * Class representing Muscat.
@@ -36,17 +37,13 @@ class Muscat {
   }
 
   public static async getBalance() {
-    const balance = await new Client(this.config.clientOption).getBalance();
-    return balance;
+    return await new Client(this.config.clientOption).getBalance();
   }
 
   public static async solve(task: Task) {
     return await new Client(this.config.clientOption).solve(task);
   }
-
 }
 
 const muscat = Muscat;
 export default muscat;
-
-

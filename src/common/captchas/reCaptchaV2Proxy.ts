@@ -1,11 +1,11 @@
-import { ReCaptchaV2Task } from "./reCaptchaV2.js";
+import { NoCaptchaTaskProxyless } from "./reCaptchaV2.js";
 import { ReCaptchaV2Proxy } from "../../types/CaptchaTypes/ReCaptchaV2Proxy.js";
 
 /**
 * Represents the ReCaptcha V2 Proxy Task Class.
 * @extends ReCaptchaV2Task
 */
-export class RecaptchaV2ProxyTask extends ReCaptchaV2Task {
+export class NoCaptchaTask extends NoCaptchaTaskProxyless {
   public proxyType: string;
   public proxyAddress: string;
   public proxyPort: number;
@@ -18,7 +18,7 @@ export class RecaptchaV2ProxyTask extends ReCaptchaV2Task {
   */
   public constructor({
     type,
-    websiteUrl,
+    websiteURL,
     websiteKey,
     recaptchaDataSValue,
     proxyType,
@@ -30,7 +30,7 @@ export class RecaptchaV2ProxyTask extends ReCaptchaV2Task {
   }: ReCaptchaV2Proxy) {
     super({
       type: type,
-      websiteUrl: websiteUrl,
+      websiteURL: websiteURL,
       websiteKey: websiteKey,
       recaptchaDataSValue: recaptchaDataSValue,
       cookies: cookies

@@ -14,13 +14,26 @@ import {
   CreateTaskResponseSuccess
 } from "../types/CreateTask.js";
 
+/**
+* Represents the Base Client Class that handles
+* the getBalance, solve, and geTaskResult methods.
+*/
 export class Client {
   private clientOptions: ClientOptions;
 
+  /**
+  * Constructs the object type Client.
+  * @param {ClientOptions} clientOptions 
+  */
   public constructor(clientOptions: ClientOptions) {
     this.clientOptions = clientOptions;
   }
 
+  /**
+  * Returns the client Key's balance.
+  * @param {AbortController?} abortController
+  * @returns {Promise<GetBalanceResponse}
+  */
   public async getBalance(
     abortController?: AbortController
   ): Promise<GetBalanceResponse> {
@@ -44,6 +57,12 @@ export class Client {
     return body as GetBalanceResponseSuccess;
   }
 
+  /**
+  * Returns the CreateTaskResponse object.
+  * @param {Task} task
+  * @param {AbortController?} abortController
+  * @returns {Promise<CreateTaskResponse>} 
+  */
   public async solve(
     task: Task,
     abortController?: AbortController
@@ -56,13 +75,10 @@ export class Client {
     const { body }: Response<CreateTaskResponse> = await client(`createTask`, {
       json: {
         clientKey: this.clientOptions.key,
-        task: JSON.stringify({
-          ...task
-        })
+        task: task
       },
       responseType: "json",
     })
-
     return body as CreateTaskResponseSuccess;
   }
 

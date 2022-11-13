@@ -1,5 +1,6 @@
 import { Errors, ErrorsKey } from "../types/Errors.js";
 import { Providers, ProvidersKey } from "../types/Providers.js";
+import { Task, TaskKey } from "../types/Task.js";
 
 /**
 * Converter for string to an enum state value.
@@ -32,5 +33,16 @@ export class Converter {
 
     if (codeType) return codeType;
     return Errors.Unknown;
+  }
+
+  /**
+  * Returns the enum state value for Task.
+  * @param {string}  toBeConverted
+  * @returns {Task}    enum value
+  */
+  public static convertTaskType(toBeConverted: string): Task {
+    const codeType = Task[toBeConverted as TaskKey];
+    if (codeType) return codeType;
+    return Task.Unknown;
   }
 }
