@@ -1,15 +1,12 @@
-export type CreateTask = {
-  taskId: number;
+export type TaskResult<E> = {
   errorId: number;
-  errorCode?: string;
-  errorDescription?: string;
+  errorCode: string;
+  errorDescription: string;
+  status: TaskResultStatus;
+  solution?: E
 };
 
-export type TaskResult<T> = {
-  errorId: number;
-  errorCode?: string;
-  errorDescription?: string;
-  status: string;
-  solution: T
-};
-
+enum TaskResultStatus {
+  processing = "processing",
+  ready = "ready"
+}

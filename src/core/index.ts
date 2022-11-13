@@ -13,6 +13,7 @@ import {
   CreateTaskResponse,
   CreateTaskResponseSuccess
 } from "../types/CreateTask.js";
+import { TaskResult } from "../types/Response.js";
 
 /**
 * Represents the Base Client Class that handles
@@ -82,4 +83,23 @@ export class Client {
     return body as CreateTaskResponseSuccess;
   }
 
+  public async getTaskResult(
+    taskId: string,
+    abortController?: AbortController
+  ): Promise<TaskResult<string>> {
+    const { client } = new RequestClient({
+      prefixUrl: this.clientOptions.provider,
+      abortController: abortController
+    });
+
+    const { body }: Response<TaskResult<string>> = await client(`getTaskResult`, {
+      json: {
+        clientKey: this.clientOptions.key,
+        taskId: taskId
+      },
+      responseType: "json"
+    })
+
+    return body;
+  }
 }
