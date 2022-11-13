@@ -20,6 +20,8 @@ async function main() {
 
     console.log(response);
 
+    const result = await muscat.getTaskResult(response.taskId);
+    console.log(result)
   }
 }
 

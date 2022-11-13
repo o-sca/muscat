@@ -1,3 +1,4 @@
+import { setTimeout } from "node:timers/promises";
 import { Response } from "got";
 import { RequestClient } from "../common/requestClient.js";
 import { ClientOptions } from "../common/clientOptions.js";
@@ -90,7 +91,7 @@ export class Client {
   }
 
   public async getTaskResult(
-    taskId: string,
+    taskId: number,
     abortController?: AbortController
   ): Promise<TaskResultResponse> {
     const { client } = new RequestClient({
@@ -112,6 +113,7 @@ export class Client {
     }
 
     if ((body as TaskResultResponseProcessing).status === "processing") {
+      await setTimeout(3000);
       return this.getTaskResult(taskId, abortController);
     }
 

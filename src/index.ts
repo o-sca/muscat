@@ -43,6 +43,10 @@ class Muscat {
   public static async solve(task: Task) {
     return await new Client(this.config.clientOption).solve(task);
   }
+
+  public static async getTaskResult(taskId: number) {
+    return await new Client(this.config.clientOption).getTaskResult(taskId);
+  }
 }
 
 const muscat = Muscat;
