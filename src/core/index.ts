@@ -13,7 +13,13 @@ import {
   CreateTaskResponse,
   CreateTaskResponseSuccess
 } from "../types/CreateTask.js";
-import { TaskResult } from "../types/Response.js";
+import {
+  TaskResultResponse,
+  TaskResultResponseError,
+  TaskResultResponseProcessing,
+  TaskResultResponseSuccess,
+} from "../types/Response.js";
+import { TaskResultError } from "../errors/TaskResult.js";
 
 /**
 * Represents the Base Client Class that handles
@@ -86,13 +92,13 @@ export class Client {
   public async getTaskResult(
     taskId: string,
     abortController?: AbortController
-  ): Promise<TaskResult<string>> {
+  ): Promise<TaskResultResponse> {
     const { client } = new RequestClient({
       prefixUrl: this.clientOptions.provider,
       abortController: abortController
     });
 
-    const { body }: Response<TaskResult<string>> = await client(`getTaskResult`, {
+    const { body }: Response<TaskResultResponse> = await client(`getTaskResult`, {
       json: {
         clientKey: this.clientOptions.key,
         taskId: taskId
@@ -100,6 +106,15 @@ export class Client {
       responseType: "json"
     })
 
-    return body;
+    if (body.errorId !== 0) {
+      const error = Converter.convertError((body as TaskResultResponseError).errorCode);
+      throw new TaskResultError(error);
+    }
+
+    if ((body as TaskResultResponseProcessing).status === "processing") {
+      return this.getTaskResult(taskId, abortController);
+    }
+
+    return body as TaskResultResponseSuccess;
   }
 }
