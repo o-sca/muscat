@@ -16,7 +16,7 @@ export class NoCaptchaTaskProxyless extends CaptchaBase {
   * Constructs the object type NoCaptchaTaskProxyless.
   * @param {ReCaptchaV2}
   */
-  constructor({
+  public constructor({
     type,
     websiteURL,
     websiteKey,
