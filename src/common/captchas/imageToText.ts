@@ -1,6 +1,10 @@
 import { CaptchaBase } from "./captchaBase.js";
 import { ImageToText as ImageToTextType } from "../../types/CaptchaTypes/ImageToText.js";
 
+/**
+* Represents the ImageToText Task Class.
+* @extends CaptchaBase
+*/
 export class ImageToText extends CaptchaBase {
   public body: string;
   public CapMonsterModule?: string;
@@ -9,6 +13,10 @@ export class ImageToText extends CaptchaBase {
   public numeric?: number;
   public math?: boolean;
 
+  /*
+  * Constructs the object type ImageToText.
+  * @param {ImageToTextType}
+  */
   public constructor({
     type,
     body,
